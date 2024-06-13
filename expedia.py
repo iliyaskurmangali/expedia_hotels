@@ -43,7 +43,7 @@ train=train[train['is_booking']==1]
 
 
 # Drop unnecessary columns
-columns_to_drop = ['date_time', 'srch_ci', 'srch_co', 'user_id','site_name','hotel_cluster']
+columns_to_drop = ['date_time', 'srch_ci', 'srch_co', 'user_id','site_name','hotel_cluster',]
 train_cleaned = train.drop(columns=columns_to_drop)
 
 # Convert timedelta columns to float (days)
@@ -60,7 +60,7 @@ train_scaled = pd.DataFrame(scaler.fit_transform(train_cleaned), columns=train_c
 # Apply KMeans
 kmeans = KMeans(n_clusters=10, random_state=42)
 train_scaled['cluster'] = kmeans.fit_predict(train_scaled)
-
+print(train_scaled)
 # Use PCA for dimensionality reduction to 10 components
 pca = PCA(n_components=10)
 train_pca = pd.DataFrame(pca.fit_transform(train_scaled.drop(columns=['cluster'])),
